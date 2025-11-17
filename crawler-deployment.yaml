@@ -81,3 +81,6 @@ spec:
       volumes:
         - name: cache-volume
           emptyDir: {}
+        - name: synergychat-api-volume
+          persistentVolumeClaim:
+            claimName: synergychat-api-pvc
