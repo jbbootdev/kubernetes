@@ -2,15 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: "2025-11-11T12:09:49Z"
-  generation: 3
+    deployment.kubernetes.io/revision: "2"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"1"},"creationTimestamp":"2025-11-11T15:19:42Z","generation":3,"labels":{"app":"synergychat-web"},"name":"synergychat-web","namespace":"default","resourceVersion":"11178","uid":"acaae081-05fe-4627-9c1a-a9558e359e55"},"spec":{"progressDeadlineSeconds":600,"replicas":3,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"synergychat-web"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"synergychat-web"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"synergychat-web-configmap"}}],"image":"docker.io/bootdotdev/synergychat-web:latest","imagePullPolicy":"Always","name":"synergychat-web","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":3,"conditions":[{"lastTransitionTime":"2025-11-11T15:19:42Z","lastUpdateTime":"2025-11-11T15:19:48Z","message":"ReplicaSet \"synergychat-web-76dd6b65c5\" has successfully progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"},{"lastTransitionTime":"2025-11-17T14:05:44Z","lastUpdateTime":"2025-11-17T14:05:44Z","message":"Deployment has minimum availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"}],"observedGeneration":3,"readyReplicas":3,"replicas":3,"updatedReplicas":3}}
+  creationTimestamp: "2025-11-11T15:19:42Z"
+  generation: 4
   labels:
     app: synergychat-web
   name: synergychat-web
   namespace: default
-  resourceVersion: "5082"
-  uid: e1f5307c-fe7e-4a66-9d9b-e72cb970444b
+  resourceVersion: "16058"
+  uid: acaae081-05fe-4627-9c1a-a9558e359e55
 spec:
   progressDeadlineSeconds: 600
   replicas: 3
@@ -29,33 +31,37 @@ spec:
         app: synergychat-web
     spec:
       containers:
-        - image: docker.io/bootdotdev/synergychat-web:latest
-          imagePullPolicy: Always
-          name: synergychat-web
-          resources: {}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
+      - envFrom:
+        - configMapRef:
+            name: synergychat-web-configmap
+        image: docker.io/bootdotdev/synergychat-web:latest
+        imagePullPolicy: Always
+        name: synergychat-web
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
 status:
-  availableReplicas: 10
+  availableReplicas: 3
   conditions:
-    - lastTransitionTime: "2025-11-11T12:09:49Z"
-      lastUpdateTime: "2025-11-11T12:09:57Z"
-      message: ReplicaSet "synergychat-web-76dd6b65c5" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: "True"
-      type: Progressing
-    - lastTransitionTime: "2025-11-11T22:31:53Z"
-      lastUpdateTime: "2025-11-11T22:31:53Z"
-      message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailable
-      status: "True"
-      type: Available
-  observedGeneration: 3
-  readyReplicas: 10
-  replicas: 10
-  updatedReplicas: 10
+  - lastTransitionTime: "2025-11-17T14:05:44Z"
+    lastUpdateTime: "2025-11-17T14:05:44Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2025-11-17T15:02:35Z"
+    lastUpdateTime: "2025-11-17T15:02:35Z"
+    message: ReplicaSet "synergychat-web-644b5c88bf" has timed out progressing.
+    reason: ProgressDeadlineExceeded
+    status: "False"
+    type: Progressing
+  observedGeneration: 4
+  readyReplicas: 3
+  replicas: 4
+  unavailableReplicas: 1
+  updatedReplicas: 1
